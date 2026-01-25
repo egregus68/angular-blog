@@ -1,0 +1,24 @@
+<mat-toolbar color="primary">
+  <div class="toolbar-content">
+    <div class="toolbar-left">
+      <span>Moja aplikacja</span>
+    </div>
+    <div class="toolbar-right">
+      <span>{{authService.UserInfo}}</span>
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="logout()">Wyloguj</button>
+      </mat-menu>
+    </div>
+  </div>
+</mat-toolbar>
+<mat-toolbar>
+  <div>
+    <button mat-button routerLink="/info">Info</button>
+    <button mat-button routerLink="/blog-page">Blog</button>
+    <button mat-button routerLink="/contact">Kontakt</button>
+  </div>
+
+</mat-toolbar>

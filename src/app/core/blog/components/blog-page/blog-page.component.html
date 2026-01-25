@@ -1,0 +1,12 @@
+<form [formGroup]="blogForm" (ngSubmit)="onSubmit()">
+    <mat-form-field>
+        <input matInput placeholder="Post" formControlName="text" />
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput [matDatepicker]="picker" placeholder="Publication date" formControlName="publicationDate" />
+        <mat-hint>DD-MM-YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit" [disabled]="!blogForm.valid">Create Post</button>
+</form>

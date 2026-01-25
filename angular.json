@@ -10,7 +10,11 @@
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
-          "style": "scss"
+          "style": "scss",
+          "skipTests": true,
+          "displayBlock": true,
+          "standalone": true,
+          "prefix": "component",
         }
       },
       "root": "",
@@ -30,7 +34,8 @@
               }
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",              
+              "./node_modules/ngx-toastr/toastr.css"
             ]
           },
           "configurations": {
