@@ -25,7 +25,7 @@ import { ChangeDetectorRef } from '@angular/core';
   styleUrl: './one-post.component.scss',
 })
 export class OnePostComponent implements OnInit {
-  post: PostInterface = {} as PostInterface;
+  post: PostInterface | null = null;
 
   constructor(
     private blogService: BlogService,
