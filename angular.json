@@ -14,7 +14,7 @@
           "skipTests": true,
           "displayBlock": true,
           "standalone": true,
-          "prefix": "component",
+          "prefix": "component"
         }
       },
       "root": "",

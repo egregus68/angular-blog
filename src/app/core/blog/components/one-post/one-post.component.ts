@@ -6,8 +6,10 @@ import { MatCardModule, MatCardHeader, MatCardContent } from '@angular/material/
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { ReactiveFormsModule } from '@angular/forms';
-import { delay } from 'rxjs';
-import { ChangeDetectorRef } from '@angular/core';
+import { Observable } from 'rxjs';
+import { AsyncPipe } from '@angular/common';
+import { MatDialogModule, MatDialog } from '@angular/material/dialog';
+import { AddCommentComponent } from './add-comment.component/add-comment.component';
 
 @Component({
   selector: 'component-one-post',
@@ -20,32 +22,42 @@ import { ChangeDetectorRef } from '@angular/core';
     MatListModule,
     MatIconModule,
     MatCardContent,
+    AsyncPipe,
+    MatDialogModule,
   ],
   templateUrl: './one-post.component.html',
   styleUrl: './one-post.component.scss',
 })
 export class OnePostComponent implements OnInit {
-  post: PostInterface | null = null;
+  post$!: Observable<PostInterface>;
 
   constructor(
+    public dialog: MatDialog,
     private blogService: BlogService,
-    private router: ActivatedRoute,
+    private route: ActivatedRoute,
   ) {}
 
   ngOnInit(): void {
-    console.log('Inicjalizacja komponentu OnePostComponent');
+    // console.log('Inicjalizacja komponentu OnePostComponent');
     this.getPost();
   }
 
   getPost(): void {
-    const id = this.router.snapshot.params['id'];
-    console.log('Pobieram post o id: ', id);
+    const id = this.route.snapshot.params['id'];
+    // console.log('Pobieram post o id: ', id);
 
-    if (id !== undefined) {
-      this.blogService.getPost(id).subscribe((data) => {
-        // console.log('Pobrany post: ', post);
-        this.post = data;
-      });
-    }
+    // console.log('Pobrany post: ', post);
+    this.post$ = this.blogService.getPost(id);
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(AddCommentComponent, {
+      data: { postId: this.route.snapshot.params['id'] },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(`Dialog result: ${result}`);
+      this.getPost();
+    });
   }
 }

@@ -1,4 +1,4 @@
-@if (post) {
+@if (post$ | async; as post) {
 <div class="container">
     <mat-card>
         <mat-card-header>
@@ -9,20 +9,20 @@
             <p>{{ post.text }}</p>
         </mat-card-content>
     </mat-card>
-
+    <button mat-raised-button color="primary" (click)="openDialog()">Add comment</button>
     <mat-card>
         <mat-card-content>
             <h4>Comments:</h4>
             <mat-list>
-                <mat-list-item>
-                    <div mat-list-icon>
-                        <mat-icon>account_circle</mat-icon>
-                    </div>
+                @for(comment of post.comments; track comment.id ) {
+                <mat-list-item class="item">
+                    <!--<mat-icon>account_circle</mat-icon>-->
+                    <div class="author">{{comment.author}}</div>
+                    <div>{{comment.text}}</div>
                 </mat-list-item>
+                }
             </mat-list>
         </mat-card-content>
     </mat-card>
-
-    
 </div>
 }

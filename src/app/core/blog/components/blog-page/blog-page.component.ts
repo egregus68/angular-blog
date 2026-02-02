@@ -38,7 +38,7 @@ export class BlogPageComponent implements OnInit {
   constructor(
     private blogService: BlogService,
     private toastr: ToastrService,
-    private router: Router,
+    private route: Router,
   ) {
     dayjs.extend(utc);
   }
@@ -64,7 +64,7 @@ export class BlogPageComponent implements OnInit {
     this.blogService.addPost(data).subscribe(
       (response) => {
         this.blogForm.reset();
-        this.router.navigate(['blog-page']);
+        this.route.navigate(['blog-page']);
         this.toastr.success('Post został dodany');
       },
       (error) => {
